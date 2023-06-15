@@ -56,6 +56,16 @@ public class Menu {
         }
         return false;
     }
+    public boolean modificarProducto (String nombre, String descripcion, double precio) {
+        Producto producto = orden.busquedaSecuencialNombre(nombre, lista);
+        if (producto != null) {
+            producto.setDescripcion(descripcion);
+            producto.setPrecio(precio);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @Override
     public String toString() {

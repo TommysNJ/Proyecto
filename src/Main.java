@@ -10,7 +10,7 @@ public class Main {
             public void run() {
                 Interfaz principalForm = new Interfaz();
                 principalForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                principalForm.setBounds(200,200,800,750);
+                principalForm.setBounds(200,200,800,7503);
                 principalForm.setContentPane(principalForm.getMainPanel());
                 principalForm.setVisible(true);
             }

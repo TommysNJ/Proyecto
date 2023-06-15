@@ -12,4 +12,9 @@ public class Historial {
     public void borrar (){
 
     }
+
+    @Override
+    public String toString() {
+        return "***Historial***\n" + pilaHistorial;
+    }
 }
