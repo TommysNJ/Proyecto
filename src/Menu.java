@@ -23,11 +23,11 @@ public class Menu {
         }
     }
     public void quemarProductos (JComboBox<String> comboBox){
-        Producto prod1 = new Producto("Producto01", "Arroz con huevo", 2000);
-        Producto prod2 = new Producto("Producto02", "Arroz con huevo", 200);
-        Producto prod3 = new Producto("Producto03", "Arroz con huevo", 300);
-        Producto prod4 = new Producto("Producto04", "Arroz con huevo", 2000);
-        Producto prod5 = new Producto("Producto05", "Arroz con huevo", 25);
+        Producto prod1 = new Producto("Producto01", "Papa", 2000);
+        Producto prod2 = new Producto("Producto02", "Salchi", 200);
+        Producto prod3 = new Producto("Producto03", "Carni", 300);
+        Producto prod4 = new Producto("Producto04", "Pollo", 2000);
+        Producto prod5 = new Producto("Producto05", "Sopa", 25);
         lista.add(prod1);
         comboBox.addItem(prod1.getNombre());
         lista.add(prod2);

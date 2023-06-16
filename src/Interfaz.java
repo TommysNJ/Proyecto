@@ -50,7 +50,7 @@ public class Interfaz extends JFrame {
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
-    private Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+    private Cliente cliente;
     private Pedido pedido = new Pedido(cliente);
 
     public Interfaz() {
@@ -237,6 +237,7 @@ public class Interfaz extends JFrame {
         FINALIZARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //pedido = new Pedido(cliente);
                 pedido.calcularTotal();
