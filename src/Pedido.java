@@ -6,26 +6,30 @@ public class Pedido {
     private double valorTotal;
     private Cliente cliente;
 
-    public Pedido(Cliente cliente, ProductoPedido pedido) {
+
+    public Pedido(Cliente cliente) {
         this.cliente = cliente;
     }
 
     public void agregarProductoPedido (ProductoPedido pedido){
-        this.productos.add(pedido);
+        productos.add(pedido);
     }
-    public Double calcularTotal (){
+    public void calcularTotal (){
+        valorTotal = 0;
         for (ProductoPedido pedido : productos){
             valorTotal += pedido.getPrecio();
         }
-        return valorTotal;
+    }
+
+    public String imprimirPedido (){
+        return productos.toString();
     }
 
     @Override
     public String toString() {
-        return "Pedido{" +
-                "productos=" + productos +
-                ", valorTotal=" + valorTotal +
-                ", cliente=" + cliente +
-                '}';
+        return "***Pedido***\n" +
+                "CLIENTE\n" + cliente +
+                "\n***Productos***\n" + productos +
+                "\nValor Total: " + valorTotal;
     }
 }

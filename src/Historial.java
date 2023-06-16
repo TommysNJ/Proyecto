@@ -9,6 +9,7 @@ public class Historial {
     public Stack<Pedido> getPilaHistorial (){
         return pilaHistorial;
     }
+
     public void borrar (){
 
     }

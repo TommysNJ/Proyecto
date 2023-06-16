@@ -23,11 +23,9 @@ public class Interfaz extends JFrame {
     private JTextField textNombreEliminar;
     private JTextArea textAEliminar;
     private JButton eliminarButton;
-    private JComboBox comboBoxOrder;
-    private JButton mostrarButton;
+    private JButton mostrarProductosButton;
     private JTextArea textAMostrar;
     private JButton buscarButton;
-    private JTextField textBuscarPlatoOrden;
     private JTextField fieldValidarCedula;
     private JButton validarButton;
     private JTextField fieldRegistrarNombre;
@@ -47,11 +45,13 @@ public class Interfaz extends JFrame {
     private JButton mostrarMenúButton;
     private JButton mostrarHistorialButton;
     private JTextArea areaHistorial;
-    private JButton eliminarButton1;
+    private JTextArea areaProdAgregados;
+    private JButton FINALIZARButton;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
-    private ProductoPedido productoPedido;
     private Historial historial = new Historial();
+    private Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+    private Pedido pedido = new Pedido(cliente);
 
     public Interfaz() {
         textoModiDescripcion.setEnabled(false);
@@ -128,34 +128,38 @@ public class Interfaz extends JFrame {
         ButtonBuscarEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (menu.imprimirProducto(textNombreEliminar.getText()) != null) {
+                    textAEliminar.setText(menu.imprimirProducto(textNombreEliminar.getText()).toString());
+                    eliminarButton.setEnabled(true);
+                } else {
+                    textAEliminar.setText("No se encontró el producto ingresado.");
+                    eliminarButton.setEnabled(false);
+                    textNombreEliminar.setText("");
+                }
             }
         });
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (menu.eliminarProducto(textNombreEliminar.getText())){
+                    menu.eliminarProducto(textNombreEliminar.getText());
+                    textAEliminar.setText("Se eliminó con éxito.");
+                    eliminarButton.setEnabled(false);
+                    textNombreEliminar.setText("");
+                } else {
+                    textAEliminar.setText("No se elimino porque no existe el producto ingresado.");
+                    eliminarButton.setEnabled(false);
+                    textNombreEliminar.setText("");
+                }
             }
         });
-        mostrarButton.addActionListener(new ActionListener() {
+        mostrarProductosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                textAMostrar.setText(menu.mostrarLista().toString());
             }
         });
 
-        mostrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        buscarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         validarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -200,10 +204,11 @@ public class Interfaz extends JFrame {
                 areaMenu.setText(menu.mostrarLista().toString());
             }
         });
+
         agregarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Cliente cliente = new Cliente(fieldRegistrarCedula.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                /*Cliente cliente = new Cliente(fieldRegistrarCedula.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
                 Pedido pedido = new Pedido(cliente,new ProductoPedido(producto,(int)spinnerCantidad.getValue()));
                 historial.agregarPedido(pedido);
@@ -215,12 +220,27 @@ public class Interfaz extends JFrame {
                     productoPedido = new ProductoPedido(producto,(int)spinnerCantidad.getValue());
                     areaMenu.setText(productoPedido.toString());
                 }*/
+                //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                //pedido = new Pedido(cliente);
+                Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
+                pedido.agregarProductoPedido(new ProductoPedido(producto,(int)spinnerCantidad.getValue()));
+                areaProdAgregados.setText(pedido.imprimirPedido());
             }
         });
         mostrarHistorialButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 areaHistorial.setText(historial.getPilaHistorial().toString());
+            }
+        });
+
+        FINALIZARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                //pedido = new Pedido(cliente);
+                pedido.calcularTotal();
+                historial.agregarPedido(pedido);
             }
         });
     }
