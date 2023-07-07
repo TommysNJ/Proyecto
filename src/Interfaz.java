@@ -47,6 +47,7 @@ public class Interfaz extends JFrame {
     private JTextArea areaHistorial;
     private JTextArea areaProdAgregados;
     private JButton FINALIZARButton;
+    private JTextField textIngresoCantProd;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
@@ -72,7 +73,7 @@ public class Interfaz extends JFrame {
         ingresarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Producto producto = new Producto(textIngresoNombre.getText(),textIngresoDescripcion.getText(),Double.parseDouble(textIngresoPrecio.getText()));
+                Producto producto = new Producto(textIngresoNombre.getText(),textIngresoDescripcion.getText(),Double.parseDouble(textIngresoPrecio.getText()),Integer.parseInt(textIngresoCantProd.getText()));
 
                 if (menu.agregarProducto(producto,comboBoxPedido)){
                     textAIngresoProducto.setText(String.valueOf(producto));

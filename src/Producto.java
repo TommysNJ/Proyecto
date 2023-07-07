@@ -2,11 +2,13 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private double precio;
+    private int cantidad;
 
-    public Producto(String nombre, String descripcion, double precio) {
+    public Producto(String nombre, String descripcion, double precio, int cantidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     public String getNombre() {
@@ -33,9 +35,17 @@ public class Producto {
         this.precio = precio;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     @Override
     public String toString() {
         return "Producto\n" + "Nombre: " + nombre + "\nDescripcion: " +
-                descripcion + "\nPrecio: " + precio + "\n";
+                descripcion + "\nPrecio: " + precio + "\nCantidad: " + cantidad + "\n\n";
     }
 }

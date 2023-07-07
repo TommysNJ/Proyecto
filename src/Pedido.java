@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Pedido {
     List<ProductoPedido> productos = new ArrayList<>();
+    private Menu menu = new Menu();
     private double valorTotal;
     private Cliente cliente;
 
@@ -24,6 +25,8 @@ public class Pedido {
     public String imprimirPedido (){
         return productos.toString();
     }
+
+
 
     @Override
     public String toString() {
