@@ -51,7 +51,7 @@ public class Interfaz extends JFrame {
     private Registro registro = new Registro();
     private Historial historial = new Historial();
     private Cliente cliente;
-    private Pedido pedido = new Pedido(cliente);
+    private Pedido pedido = new Pedido();
     private SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,100,1);
     private ValidacionesYOrdenamiento validar = new ValidacionesYOrdenamiento();
 
@@ -270,9 +270,10 @@ public class Interfaz extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
-                //pedido = new Pedido(cliente);
+                pedido.setCliente(cliente);
                 pedido.calcularTotal();
                 historial.agregarPedido(pedido);
+                pedido = new Pedido();
             }
         });
         textIngresoPrecio.addKeyListener(new KeyAdapter() {
