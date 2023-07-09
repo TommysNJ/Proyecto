@@ -37,6 +37,8 @@ public class ProductoPedido {
 
     @Override
     public String toString() {
-        return "***Producto Agregado***\n" + producto + "Cantidad: " + cantidad + "\nPrecio: " + precio + "\n";
+        return "----------------------------\n" +
+                producto + "\nCantidad: " + cantidad + "\nPrecio por producto: " + precio + "\n";
     }
+
 }

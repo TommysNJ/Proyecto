@@ -8,7 +8,8 @@ public class Pedido {
     private Cliente cliente;
 
 
-    public Pedido(Cliente cliente) {
+
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -30,9 +31,8 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "***Pedido***\n" +
-                "CLIENTE\n" + cliente +
-                "\n***Productos***\n" + productos +
+        return "\n\n\n***PEDIDO***\n" + cliente +
+                "\n-Productos Pedidos-\n" + productos + "----------------------------" +
                 "\nValor Total: " + valorTotal;
     }
 }

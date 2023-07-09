@@ -54,7 +54,7 @@ public class Interfaz extends JFrame {
     private Registro registro = new Registro();
     private Historial historial = new Historial();
     private Cliente cliente;
-    private Pedido pedido = new Pedido(cliente);
+    private Pedido pedido = new Pedido();
 
     public Interfaz() {
         textoModiDescripcion.setEnabled(false);
@@ -228,6 +228,7 @@ public class Interfaz extends JFrame {
                 }*/
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //pedido = new Pedido(cliente);
+                //pedido = new Pedido();
                 Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
                 pedido.agregarProductoPedido(new ProductoPedido(producto,(int)spinnerCantidad.getValue()));
                 areaProdAgregados.setText(pedido.imprimirPedido());
@@ -246,8 +247,10 @@ public class Interfaz extends JFrame {
                 cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //pedido = new Pedido(cliente);
+                pedido.setCliente(cliente);
                 pedido.calcularTotal();
                 historial.agregarPedido(pedido);
+                pedido = new Pedido();
             }
         });
         textIngresoPrecio.addKeyListener(new KeyAdapter() {
