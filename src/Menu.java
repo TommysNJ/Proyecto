@@ -71,6 +71,19 @@ public class Menu {
             return false;
         }
     }
+    public boolean disminuirCantidadProducto(ProductoPedido prod){
+        Producto producto = orden.coincidenciaProducto(prod,lista);
+        if (producto!=null){
+            if (producto.getCantidad()>=prod.getCantidad()){
+                producto.setCantidad(producto.getCantidad()-prod.getCantidad());
+                return true;
+            } else{
+                return false;
+            }
+        }
+        return false;
+    }
+
     private void actualizarComboBox(JComboBox<String> combobox) {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         for (Producto producto : lista) {

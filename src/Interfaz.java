@@ -253,9 +253,15 @@ public class Interfaz extends JFrame {
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //pedido = new Pedido(cliente);
                 Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
-                pedido.agregarProductoPedido(new ProductoPedido(producto,(int)spinnerCantidad.getValue()));
-                areaProdAgregados.setText(pedido.imprimirPedido());
-                FINALIZARButton.setEnabled(true);
+                ProductoPedido productoPedido= new ProductoPedido(producto,(int)spinnerCantidad.getValue());
+                if (menu.disminuirCantidadProducto(productoPedido)){
+                    //menu.disminuirCantidadProducto(productoPedido);
+                    pedido.agregarProductoPedido(productoPedido);
+                    areaProdAgregados.setText(pedido.imprimirPedido());
+                    FINALIZARButton.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(null,"No hay los suficientes productos disponibles, lamentamos el incoveniente.");
+                }
             }
         });
         mostrarHistorialButton.addActionListener(new ActionListener() {
@@ -274,6 +280,7 @@ public class Interfaz extends JFrame {
                 pedido.calcularTotal();
                 historial.agregarPedido(pedido);
                 pedido = new Pedido();
+                areaProdAgregados.setText("");
             }
         });
         textIngresoPrecio.addKeyListener(new KeyAdapter() {
