@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Interfaz extends JFrame {
+public class Interfaz extends JFrame{
 
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
@@ -47,6 +47,24 @@ public class Interfaz extends JFrame {
     private JTextArea areaProdAgregados;
     private JButton FINALIZARButton;
     private JTextField textIngresoCantProd;
+    private JTabbedPane tabbedCajero;
+    private JTextField txtCliente;
+    private JButton btnAceptar;
+    private JTextArea area;
+    private JPanel panelIngresar;
+    private JPanel panelModificar;
+    private JPanel panelEliminar;
+    private JPanel panelMostrar;
+    private JPanel panelHistorial;
+    private JPanel panelPedido;
+    private JPanel panelClientes;
+    private JCheckBox ordenAlfabeticoCheckBox;
+    private JComboBox comboBoxBusca;
+    private JCheckBox aZCheckBox;
+    private JCheckBox zACheckBox;
+    private JCheckBox ordenAgregadoCheckBox;
+    private JCheckBox ascendenteCheckBox;
+    private JCheckBox descendenteCheckBox;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
@@ -54,6 +72,8 @@ public class Interfaz extends JFrame {
     private Pedido pedido = new Pedido();
     private SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,100,1);
     private ValidacionesYOrdenamiento validar = new ValidacionesYOrdenamiento();
+    private InicioSesion inicio = new InicioSesion();
+
 
     public Interfaz() {
         textoModiDescripcion.setEnabled(false);
@@ -71,7 +91,6 @@ public class Interfaz extends JFrame {
         fieldRegistrarTelefono.setVisible(false);
         registrarButton.setVisible(false);
         spinnerCantidad.setModel(modelo);
-
 
         spinnerCantidad.setEditor(new JSpinner.DefaultEditor(spinnerCantidad) {
             @Override
@@ -456,8 +475,7 @@ public class Interfaz extends JFrame {
                 habBtnRegistrar();
             }
         });
-        fieldValidarCedula.addMouseListener(new MouseAdapter() {
-        });
+
         fieldValidarCedula.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -471,6 +489,110 @@ public class Interfaz extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 habBtnValidar();
+            }
+        });
+
+        btnAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedOption = (String) comboBoxBusca.getSelectedItem();
+
+                if (selectedOption.equals("Cedula")) {
+                    if(registro.buscarClientePorCedula(txtCliente.getText())==null){
+                        JOptionPane.showMessageDialog(null,"Cliente no encontrado");
+                        area.setText("");
+                    }else{
+                        area.setText(registro.buscarClientePorCedula(txtCliente.getText()).toString());
+                    }
+                } else if (selectedOption.equals("Nombre")) {
+                    if(registro.buscarClientePorNombre(txtCliente.getText())==null){
+                        JOptionPane.showMessageDialog(null,"Cliente no encontrado");
+                        area.setText("");
+                    }else{
+                        area.setText(registro.buscarClientePorNombre(txtCliente.getText()).toString());
+                    }
+                } else if (selectedOption.equals("Correo")) {
+                    if(registro.buscarClientePorCorreo(txtCliente.getText())==null){
+                        JOptionPane.showMessageDialog(null,"Cliente no encontrado");
+                        area.setText("");
+                    }else{
+                        area.setText(registro.buscarClientePorCorreo(txtCliente.getText()).toString());
+                    }
+                } else {
+                    // Código a ejecutar para cualquier otra opción
+                    JOptionPane.showMessageDialog(null, "No se seleccionó una opción válida");
+                }
+            }
+        });
+        txtCliente.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habAcept();
+            }
+        });
+
+        aZCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(aZCheckBox.isSelected()){
+                    zACheckBox.setEnabled(false);
+                    ascendenteCheckBox.setEnabled(false);
+                    descendenteCheckBox.setEnabled(false);
+                    area.setText("");
+                    area.append(registro.obtenerClientesPorNombreAscendente());
+                }else{
+                    zACheckBox.setEnabled(true);
+                    ascendenteCheckBox.setEnabled(true);
+                    descendenteCheckBox.setEnabled(true);
+                }
+            }
+        });
+        zACheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(zACheckBox.isSelected()){
+                    aZCheckBox.setEnabled(false);
+                    ascendenteCheckBox.setEnabled(false);
+                    descendenteCheckBox.setEnabled(false);
+                    area.setText("");
+                    area.append(registro.obtenerClientesPorNombreDescendente());
+                }else{
+                    aZCheckBox.setEnabled(true);
+                    ascendenteCheckBox.setEnabled(true);
+                    descendenteCheckBox.setEnabled(true);
+                }
+            }
+        });
+        ascendenteCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ascendenteCheckBox.isSelected()){
+                    descendenteCheckBox.setEnabled(false);
+                    aZCheckBox.setEnabled(false);
+                    zACheckBox.setEnabled(false);
+                    area.setText("");
+                    area.append(registro.imprimirTodosClientesAscendente());
+                }else{
+                    descendenteCheckBox.setEnabled(true);
+                    aZCheckBox.setEnabled(true);
+                    aZCheckBox.setEnabled(true);
+                }
+            }
+        });
+        descendenteCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(descendenteCheckBox.isSelected()){
+                    ascendenteCheckBox.setEnabled(false);
+                    aZCheckBox.setEnabled(false);
+                    zACheckBox.setEnabled(false);
+                    area.setText("");
+                    area.append(registro.imprimirTodosClientesDescendente());
+                }else{
+                    ascendenteCheckBox.setEnabled(true);
+                    aZCheckBox.setEnabled(true);
+                    zACheckBox.setEnabled(true);
+                }
             }
         });
     }
@@ -505,6 +627,14 @@ public class Interfaz extends JFrame {
             validarButton.setEnabled(true);
         }else{
             validarButton.setEnabled(false);
+        }
+    }
+
+    public void habAcept(){
+        if(!txtCliente.getText().isEmpty()){
+            btnAceptar.setEnabled(true);
+        }else{
+            btnAceptar.setEnabled(false);
         }
     }
 
