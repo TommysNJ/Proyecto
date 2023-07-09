@@ -6,9 +6,12 @@ public class InicioSesion extends JFrame{
     private JTextField txtFieldUser;
     private JPasswordField txtFieldPass;
     private JButton btnAccept;
+    private String userCajero = "cajero";
+    private String passCajero = "cajero";
+    private String userAdmin = "admin";
+    private String passAdmin = "admin";
+    private boolean esAdmin;
 
-    private String user = "admin";
-    private String password = "admin";
 
     public InicioSesion() {
 
@@ -16,7 +19,8 @@ public class InicioSesion extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                    if (txtFieldUser.getText().equals(user) && txtFieldPass.getText().equals(password)) {
+                    if (txtFieldUser.getText().equals(userAdmin) && txtFieldPass.getText().equals(passAdmin)) {
+
                         Interfaz formaPrincipal = new Interfaz();
                         formaPrincipal.setContentPane(formaPrincipal.getMainPanel());
                         formaPrincipal.setBounds(350, 150, 800, 500);
@@ -31,8 +35,8 @@ public class InicioSesion extends JFrame{
 
             }
         });
-        btnAccept.addComponentListener(new ComponentAdapter() {
-        });
+
+
 
         txtFieldPass.addKeyListener(new KeyAdapter() {
             @Override
@@ -53,6 +57,8 @@ public class InicioSesion extends JFrame{
             }
         });
     }
+
+
 
     public JPanel getPanel() {
         return panel;
