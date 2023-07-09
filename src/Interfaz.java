@@ -104,7 +104,7 @@ public class Interfaz extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menu.quemarProductos(comboBoxPedido);
-                textAIngresoProducto.setText(menu.mostrarLista().toString());
+                textAIngresoProducto.setText(menu.mostrarProductosAdmin().toString());
                 QuemarDatosButton.setEnabled(false);
                 //ingresarProductoButton.setEnabled(true);
             }
@@ -231,7 +231,7 @@ public class Interfaz extends JFrame {
         mostrarMenúButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                areaMenu.setText(menu.mostrarLista().toString());
+                areaMenu.setText(menu.toString());
             }
         });
 
