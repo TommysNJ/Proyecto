@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Interfaz extends JFrame {
 
@@ -80,10 +82,13 @@ public class Interfaz extends JFrame {
                     textIngresoNombre.setText("");
                     textIngresoPrecio.setText("");
                     textIngresoDescripcion.setText("");
+                    textIngresoCantProd.setText("");
                 } else{
                     textAIngresoProducto.setText("El nombre o descripción del producto ya existe, ingrese uno nuevo.");
                     textIngresoNombre.setText("");
+                    textIngresoPrecio.setText("");
                     textIngresoDescripcion.setText("");
+                    textIngresoCantProd.setText("");
                 }
             }
         });
@@ -93,7 +98,7 @@ public class Interfaz extends JFrame {
                 menu.quemarProductos(comboBoxPedido);
                 textAIngresoProducto.setText(menu.mostrarLista().toString());
                 QuemarDatosButton.setEnabled(false);
-                ingresarProductoButton.setEnabled(true);
+                //ingresarProductoButton.setEnabled(true);
             }
         });
         buscarModifButton.addActionListener(new ActionListener() {
@@ -104,7 +109,7 @@ public class Interfaz extends JFrame {
                     textoModifNombre.setEnabled(true);
                     textoModifPrecio.setEnabled(true);
                     textoModiDescripcion.setEnabled(true);
-                    modificarModifButton.setEnabled(true);
+                    //modificarModifButton.setEnabled(true);
                 } else {
                     textAModif.setText("No se encontró un plato con el nombre especificado.");
                     textoModifPrecio.setEnabled(false);
@@ -245,8 +250,89 @@ public class Interfaz extends JFrame {
                 historial.agregarPedido(pedido);
             }
         });
+        textIngresoPrecio.addKeyListener(new KeyAdapter() {
+        });
+        textIngresoPrecio.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es un número
+                }
+            }
+        });
+        textIngresoCantProd.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es un número
+                }
+            }
+        });
+
+        textIngresoNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnIngresar();
+            }
+        });
+        textIngresoDescripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnIngresar();
+            }
+        });
+        textIngresoPrecio.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnIngresar();
+            }
+        });
+        textIngresoCantProd.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnIngresar();
+            }
+        });
+        textoModifPrecio.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es un número
+                }
+            }
+        });
+        textoModiDescripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnModi();
+            }
+        });
+        textoModifPrecio.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnModi();
+            }
+        });
+    }
+    public void habBtnIngresar(){
+        if(!textIngresoNombre.getText().isEmpty() && !textIngresoDescripcion.getText().isEmpty() &&
+        !textIngresoPrecio.getText().isEmpty() && !textIngresoCantProd.getText().isEmpty()){
+            ingresarProductoButton.setEnabled(true);
+        }else{
+            ingresarProductoButton.setEnabled(false);
+        }
     }
 
+    public void habBtnModi(){
+        if(!textoModiDescripcion.getText().isEmpty() && !textoModifPrecio.getText().isEmpty()){
+            modificarModifButton.setEnabled(true);
+        }else{
+            modificarModifButton.setEnabled(false);
+        }
+    }
     //Get mainPanel
     public JPanel getMainPanel() {
         return mainPanel;
