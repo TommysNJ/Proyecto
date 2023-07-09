@@ -48,4 +48,7 @@ public class Producto {
         return "Producto\n" + "Nombre: " + nombre + "\nDescripcion: " +
                 descripcion + "\nPrecio: " + precio + "\n"; //+ "\nCantidad: " + cantidad + "\n\n";
     }
+
+
+
 }

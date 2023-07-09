@@ -47,10 +47,11 @@ public class Menu {
         return null;
     }
 
-    public boolean eliminarProducto (String nombre){
+    public boolean eliminarProducto (String nombre, JComboBox<String> combobox){
         for (int i=0;i<lista.size();i++){
             if (lista.get(i).getNombre().equalsIgnoreCase(nombre)){
                 lista.remove(i);
+                actualizarComboBox(combobox);
                 return true;
             }
         }
@@ -66,7 +67,13 @@ public class Menu {
             return false;
         }
     }
-
+    private void actualizarComboBox(JComboBox<String> combobox) {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        for (Producto producto : lista) {
+            model.addElement(producto.getNombre());
+        }
+        combobox.setModel(model);
+    }
     @Override
     public String toString() {
         return "***MENU***\n" + lista;

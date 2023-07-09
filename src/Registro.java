@@ -26,10 +26,12 @@ public class Registro {
         Cliente c3 = new Cliente("Tomás Núñez", "2014567348", "tomas.nunezj@hotmail.com","0998949534");
         Cliente c4 = new Cliente("Tomás Núñez", "3476342517", "tomas.nunezj@hotmail.com","0998949534");
         Cliente c5 = new Cliente("Tomás Núñez", "0978572832", "tomas.nunezj@hotmail.com", "0998949534");
-        lista.add(c1);
-        lista.add(c2);
-        lista.add(c3);
-        lista.add(c4);
-        lista.add(c5);
+        Cliente c6 = new Cliente("Andres Guaman","123","andres@gmail.com", "0982863427");
+        agregarCliente(c1);
+        agregarCliente(c2);
+        agregarCliente(c3);
+        agregarCliente(c4);
+        agregarCliente(c5);
+        agregarCliente(c6);
     }
 }

@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public class Interfaz extends JFrame {
 
@@ -54,7 +51,9 @@ public class Interfaz extends JFrame {
     private Registro registro = new Registro();
     private Historial historial = new Historial();
     private Cliente cliente;
-    private Pedido pedido = new Pedido();
+    private Pedido pedido = new Pedido(cliente);
+    private SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,100,1);
+    private ValidacionesYOrdenamiento validar = new ValidacionesYOrdenamiento();
 
     public Interfaz() {
         textoModiDescripcion.setEnabled(false);
@@ -71,6 +70,15 @@ public class Interfaz extends JFrame {
         fieldRegistrarCorreo.setVisible(false);
         fieldRegistrarTelefono.setVisible(false);
         registrarButton.setVisible(false);
+        spinnerCantidad.setModel(modelo);
+
+
+        spinnerCantidad.setEditor(new JSpinner.DefaultEditor(spinnerCantidad) {
+            @Override
+            public void setEnabled(boolean enabled) {
+                super.setEnabled(false);
+            }
+        });
 
         ingresarProductoButton.addActionListener(new ActionListener() {
             @Override
@@ -113,6 +121,7 @@ public class Interfaz extends JFrame {
                 } else {
                     textAModif.setText("No se encontró un plato con el nombre especificado.");
                     textoModifPrecio.setEnabled(false);
+                    textoModiDescripcion.setEnabled(false);
                     modificarModifButton.setEnabled(false);
                 }
             }
@@ -147,16 +156,18 @@ public class Interfaz extends JFrame {
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (menu.eliminarProducto(textNombreEliminar.getText())){
-                    menu.eliminarProducto(textNombreEliminar.getText());
-                    textAEliminar.setText("Se eliminó con éxito.");
+
+                String nombreEliminar = textNombreEliminar.getText();
+                if (menu.eliminarProducto(nombreEliminar, comboBoxPedido)) {
+                    textAEliminar.setText("Se eliminó con éxito");
                     eliminarButton.setEnabled(false);
                     textNombreEliminar.setText("");
                 } else {
-                    textAEliminar.setText("No se elimino porque no existe el producto ingresado.");
+                    textAEliminar.setText("No se eliminó porque no existe el producto ingresado");
                     eliminarButton.setEnabled(false);
                     textNombreEliminar.setText("");
                 }
+
             }
         });
         mostrarProductosButton.addActionListener(new ActionListener() {
@@ -181,6 +192,14 @@ public class Interfaz extends JFrame {
                     fieldRegistrarCorreo.setVisible(true);
                     fieldRegistrarTelefono.setVisible(true);
                     registrarButton.setVisible(true);
+                    fieldRegistrarNombre.setText("");
+                    fieldRegistrarCedula.setText("");
+                    fieldRegistrarTelefono.setText("");
+                    fieldRegistrarCorreo.setText("");
+                    fieldRegistrarNombre.setEditable(true);
+                    fieldRegistrarCedula.setEditable(true);
+                    fieldRegistrarCorreo.setEditable(true);
+                    fieldRegistrarTelefono.setEditable(true);
                 } else{
                     labelNombre.setVisible(true);
                     labelCedula.setVisible(true);
@@ -194,6 +213,11 @@ public class Interfaz extends JFrame {
                     fieldRegistrarCedula.setText(registro.imprimirCliente(fieldValidarCedula.getText()).getCedula());
                     fieldRegistrarCorreo.setText(registro.imprimirCliente(fieldValidarCedula.getText()).getCorreo());
                     fieldRegistrarTelefono.setText(String.valueOf(registro.imprimirCliente(fieldValidarCedula.getText()).getTelefono()));
+                    fieldRegistrarNombre.setEditable(false);
+                    fieldRegistrarCedula.setEditable(false);
+                    fieldRegistrarCorreo.setEditable(false);
+                    fieldRegistrarTelefono.setEditable(false);
+                    registrarButton.setVisible(false);
                 }
             }
         });
@@ -228,10 +252,10 @@ public class Interfaz extends JFrame {
                 }*/
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //pedido = new Pedido(cliente);
-                //pedido = new Pedido();
                 Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
                 pedido.agregarProductoPedido(new ProductoPedido(producto,(int)spinnerCantidad.getValue()));
                 areaProdAgregados.setText(pedido.imprimirPedido());
+                FINALIZARButton.setEnabled(true);
             }
         });
         mostrarHistorialButton.addActionListener(new ActionListener() {
@@ -247,10 +271,8 @@ public class Interfaz extends JFrame {
                 cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                 //pedido = new Pedido(cliente);
-                pedido.setCliente(cliente);
                 pedido.calcularTotal();
                 historial.agregarPedido(pedido);
-                pedido = new Pedido();
             }
         });
         textIngresoPrecio.addKeyListener(new KeyAdapter() {
@@ -319,6 +341,129 @@ public class Interfaz extends JFrame {
                 habBtnModi();
             }
         });
+        textNombreEliminar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Simular la acción de presionar el botón
+                    ButtonBuscarEliminar.doClick();
+                }
+            }
+        });
+        fieldValidarCedula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es un número
+                }
+
+                String text = fieldValidarCedula.getText();
+                if (text.length() >= 10) {
+                    e.consume();  // Cancela el evento de entrada si se alcanza la longitud máxima (10 caracteres)
+                }
+            }
+        });
+        fieldRegistrarCedula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es un número
+                }
+
+                String text = fieldRegistrarCedula.getText();
+                if (text.length() >= 10) {
+                    e.consume();  // Cancela el evento de entrada si se alcanza la longitud máxima (10 caracteres)
+                }
+            }
+        });
+        fieldRegistrarTelefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es un número
+                }
+
+                String text = fieldRegistrarTelefono.getText();
+                if (text.length() >= 10) {
+                    e.consume();  // Cancela el evento de entrada si se alcanza la longitud máxima (10 caracteres)
+                }
+            }
+        });
+        fieldRegistrarNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                    e.consume();  // Cancela el evento de entrada si no es una letra o espacio
+                }
+            }
+        });
+
+        registrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String correo = fieldRegistrarCorreo.getText();
+                String telf = fieldRegistrarTelefono.getText();
+                String cedula = fieldRegistrarCedula.getText();
+
+                if (!validar.esCorreoValido(correo)) {
+                    JOptionPane.showMessageDialog(null, "Ingresa una dirección de correo electrónico válida");
+                } else if (!validar.esNumeroTelefonoValido(telf)) {
+                    JOptionPane.showMessageDialog(null, "Ingresa un número telefónico válido");
+                } else if (!validar.esCedulaValida(cedula)) {
+                    JOptionPane.showMessageDialog(null, "Ingresa un número de cédula válido");
+                } else {
+                    // codigo boton despues de validar
+                    Cliente client = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),
+                            fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                    registro.agregarCliente(client);
+                }
+            }
+        });
+        fieldRegistrarNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnRegistrar();
+            }
+        });
+        fieldRegistrarCedula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnRegistrar();
+            }
+        });
+        fieldRegistrarCorreo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnRegistrar();
+            }
+        });
+        fieldRegistrarTelefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnRegistrar();
+            }
+        });
+        fieldValidarCedula.addMouseListener(new MouseAdapter() {
+        });
+        fieldValidarCedula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Simular la acción de presionar el botón
+                    validarButton.doClick();
+                }
+            }
+        });
+        fieldValidarCedula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habBtnValidar();
+            }
+        });
     }
     public void habBtnIngresar(){
         if(!textIngresoNombre.getText().isEmpty() && !textIngresoDescripcion.getText().isEmpty() &&
@@ -336,6 +481,24 @@ public class Interfaz extends JFrame {
             modificarModifButton.setEnabled(false);
         }
     }
+
+    public void habBtnRegistrar(){
+        if(!fieldRegistrarNombre.getText().isEmpty() &&  !fieldRegistrarCedula.getText().isEmpty() &&
+        !fieldRegistrarCorreo.getText().isEmpty() && !fieldRegistrarTelefono.getText().isEmpty()){
+            registrarButton.setEnabled(true);
+        }else{
+            registrarButton.setEnabled(false);
+        }
+    }
+
+    public void  habBtnValidar(){
+        if(!fieldValidarCedula.getText().isEmpty()){
+            validarButton.setEnabled(true);
+        }else{
+            validarButton.setEnabled(false);
+        }
+    }
+
     //Get mainPanel
     public JPanel getMainPanel() {
         return mainPanel;
