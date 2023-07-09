@@ -281,6 +281,7 @@ public class Interfaz extends JFrame {
                 historial.agregarPedido(pedido);
                 pedido = new Pedido();
                 areaProdAgregados.setText("");
+                JOptionPane.showMessageDialog(null,"Pedido realizado con éxito!!");
             }
         });
         textIngresoPrecio.addKeyListener(new KeyAdapter() {
