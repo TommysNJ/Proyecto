@@ -7,8 +7,12 @@ public class Menu {
     private ValidacionesYOrdenamiento orden = new ValidacionesYOrdenamiento();
     JComboBox<String> comboBox = new JComboBox<>();
 
-    public List<Producto> mostrarLista (){
-        return lista;
+    public List<String> mostrarProductosAdmin(){
+        List<String> list = new ArrayList<>();
+        for (Producto prod : lista){
+            list.add(prod.toString() + "Cantidad disponible: " + prod.getCantidad() + "\n\n");
+        }
+        return list;
     }
 
     public boolean agregarProducto (Producto producto, JComboBox<String>combobox){
@@ -74,6 +78,7 @@ public class Menu {
         }
         combobox.setModel(model);
     }
+
     @Override
     public String toString() {
         return "***MENU***\n" + lista;

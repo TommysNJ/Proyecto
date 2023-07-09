@@ -173,7 +173,7 @@ public class Interfaz extends JFrame {
         mostrarProductosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textAMostrar.setText(menu.mostrarLista().toString());
+                textAMostrar.setText(menu.mostrarProductosAdmin().toString());
             }
         });
 
