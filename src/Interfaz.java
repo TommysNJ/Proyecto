@@ -103,8 +103,7 @@ public class Interfaz extends JFrame{
         fieldRegistrarCedula.setVisible(false);
         fieldRegistrarCorreo.setVisible(false);
         fieldRegistrarTelefono.setVisible(false);
-        registrarButton.setVisible(false);
-        agregarButton.setEnabled(false);
+        //registrarButton.setVisible(false);
 
         spinnerCantidad.setModel(modelo);
         if(mUsuario.equals("admin") && mClave.equals("admin")){
@@ -232,7 +231,6 @@ public class Interfaz extends JFrame{
                     fieldRegistrarCedula.setVisible(true);
                     fieldRegistrarCorreo.setVisible(true);
                     fieldRegistrarTelefono.setVisible(true);
-                    registrarButton.setVisible(true);
                     fieldRegistrarNombre.setText("");
                     fieldRegistrarCedula.setText("");
                     fieldRegistrarTelefono.setText("");
@@ -258,8 +256,7 @@ public class Interfaz extends JFrame{
                     fieldRegistrarCedula.setEditable(false);
                     fieldRegistrarCorreo.setEditable(false);
                     fieldRegistrarTelefono.setEditable(false);
-                    registrarButton.setVisible(false);
-                    agregarButton.setEnabled(true);
+
                 }
             }
         });
@@ -318,27 +315,60 @@ public class Interfaz extends JFrame{
         FINALIZARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
-                //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
-                pedido.setCliente(cliente);
-                pedido.calcularTotal();
-                historial.agregarPedido(pedido);
-                pedido = new Pedido();
-                labelNombre.setVisible(false);
-                labelCedula.setVisible(false);
-                labelCorreo.setVisible(false);
-                labelTelefono.setVisible(false);
-                fieldRegistrarNombre.setVisible(false);
-                fieldRegistrarCedula.setVisible(false);
-                fieldRegistrarCorreo.setVisible(false);
-                fieldRegistrarTelefono.setVisible(false);
-                areaProdAgregados.setText("");
-                fieldValidarCedula.setText("");
-                agregarButton.setEnabled(false);
-                FINALIZARButton.setEnabled(false);
 
-                JOptionPane.showMessageDialog(null,"Pedido realizado con éxito!!");
-            }
+                    String correo = fieldRegistrarCorreo.getText();
+                    String telf = fieldRegistrarTelefono.getText();
+                    String cedula = fieldRegistrarCedula.getText();
+
+                    if (!validar.esCedulaValida(cedula)) {
+                        JOptionPane.showMessageDialog(null, "Verifica loa datos del cliente. Ingresa un número de cédula válido");
+                    } else if (!validar.esNumeroTelefonoValido(telf)) {
+                        JOptionPane.showMessageDialog(null, "Verifica loa datos del cliente. Ingresa un número telefónico válido");
+                    } else if (!validar.esCorreoValido(correo)) {
+                        JOptionPane.showMessageDialog(null, "Verifica loa datos del cliente. Ingresa una dirección de correo electrónico válida");
+                    } else if(fieldRegistrarNombre.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Verifica loa datos del cliente. Ingresa nombre del cliente");
+                    }else if (validar.validarClienteExistente(cedula, correo, telf)) {
+                        JOptionPane.showMessageDialog(null, "El cliente ya existe. Verifica los datos ingresados");
+                        cliente = new Cliente(fieldRegistrarNombre.getText(), fieldRegistrarCedula.getText(), fieldRegistrarCorreo.getText(), fieldRegistrarTelefono.getText());
+                        //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                        pedido.setCliente(cliente);
+                        pedido.calcularTotal();
+                        historial.agregarPedido(pedido);
+                        pedido = new Pedido();
+                        areaProdAgregados.setText("");
+                        fieldValidarCedula.setText("");
+                        fieldRegistrarNombre.setText("");
+                        fieldRegistrarCedula.setText("");
+                        fieldRegistrarCorreo.setText("");
+                        fieldRegistrarTelefono.setText("");
+                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito!!");
+                        FINALIZARButton.setEnabled(false);
+                    }else{
+                            // codigo boton despues de validar
+                        /*Cliente client = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),
+                                fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                        registro.agregarCliente(client);*/
+                            cliente = new Cliente(fieldRegistrarNombre.getText(), fieldRegistrarCedula.getText(), fieldRegistrarCorreo.getText(), fieldRegistrarTelefono.getText());
+                            //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                            registro.agregarCliente(cliente);
+                            pedido.setCliente(cliente);
+                            pedido.calcularTotal();
+                            historial.agregarPedido(pedido);
+                            pedido = new Pedido();
+                            areaProdAgregados.setText("");
+                            fieldValidarCedula.setText("");
+                            fieldRegistrarNombre.setText("");
+                            fieldRegistrarCedula.setText("");
+                            fieldRegistrarCorreo.setText("");
+                            fieldRegistrarTelefono.setText("");
+                            JOptionPane.showMessageDialog(null, "Pedido realizado con éxito!!");
+                            FINALIZARButton.setEnabled(false);
+                        }
+
+                    }
+                    /*registrarButton.setVisible(false);
+                    JOptionPane.showMessageDialog(null,"Cliente ingresado correctamente a la base de datos!!");*/
         });
         textIngresoPrecio.addKeyListener(new KeyAdapter() {
         });
@@ -467,63 +497,6 @@ public class Interfaz extends JFrame{
             }
         });
 
-        registrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String correo = fieldRegistrarCorreo.getText();
-                String telf = fieldRegistrarTelefono.getText();
-                String cedula = fieldRegistrarCedula.getText();
-
-                if (!validar.esCorreoValido(correo)) {
-                    JOptionPane.showMessageDialog(null, "Ingresa una dirección de correo electrónico válida");
-                } else if (!validar.esNumeroTelefonoValido(telf)) {
-                    JOptionPane.showMessageDialog(null, "Ingresa un número telefónico válido");
-                } else if (!validar.esCedulaValida(cedula)) {
-                    JOptionPane.showMessageDialog(null, "Ingresa un número de cédula válido");
-                } else {
-                    // codigo boton despues de validar
-                    Cliente client = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),
-                            fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
-                    registro.agregarCliente(client);
-                    JOptionPane.showMessageDialog(null,"Cliente ingresado correctamente a la base de datos!!");
-                    labelNombre.setVisible(false);
-                    labelCedula.setVisible(false);
-                    labelCorreo.setVisible(false);
-                    labelTelefono.setVisible(false);
-                    fieldRegistrarNombre.setVisible(false);
-                    fieldRegistrarCedula.setVisible(false);
-                    fieldRegistrarCorreo.setVisible(false);
-                    fieldRegistrarTelefono.setVisible(false);
-                    areaProdAgregados.setText("");
-                    fieldValidarCedula.setText("");
-                }
-                //registrarButton.setVisible(false);
-            }
-        });
-        fieldRegistrarNombre.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habBtnRegistrar();
-            }
-        });
-        fieldRegistrarCedula.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habBtnRegistrar();
-            }
-        });
-        fieldRegistrarCorreo.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habBtnRegistrar();
-            }
-        });
-        fieldRegistrarTelefono.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habBtnRegistrar();
-            }
-        });
 
         fieldValidarCedula.addKeyListener(new KeyAdapter() {
             @Override
@@ -715,14 +688,6 @@ public class Interfaz extends JFrame{
         }
     }
 
-    public void habBtnRegistrar(){
-        if(!fieldRegistrarNombre.getText().isEmpty() &&  !fieldRegistrarCedula.getText().isEmpty() &&
-        !fieldRegistrarCorreo.getText().isEmpty() && !fieldRegistrarTelefono.getText().isEmpty()){
-            registrarButton.setEnabled(true);
-        }else{
-            registrarButton.setEnabled(false);
-        }
-    }
 
     public void  habBtnValidar(){
         if(!fieldValidarCedula.getText().isEmpty()){

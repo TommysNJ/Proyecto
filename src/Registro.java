@@ -75,6 +75,15 @@ public class Registro {
         }
         return null; // No se encontró ningún cliente con el correo proporcionado
     }
+    public Cliente buscarClientePorTelefono(String telefono) {
+        for (Cliente cliente : lista) {
+            if (cliente.getTelefono().equals(telefono)) {
+                return cliente; // Se encontró el cliente con el número de teléfono proporcionado
+            }
+        }
+        return null; // No se encontró ningún cliente con el número de teléfono proporcionado
+    }
+
 
     public String obtenerClientesPorNombreAscendente() {
         List<Cliente> listaOrdenada = new ArrayList<>(lista);

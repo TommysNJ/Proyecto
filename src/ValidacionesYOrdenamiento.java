@@ -122,4 +122,25 @@ public class ValidacionesYOrdenamiento {
         return digitoVerificador == digitoCalculado;
     }
 
+    public boolean validarClienteExistente(String cedula, String correo, String telefono) {
+        Registro registro = new Registro();
+
+        Cliente clienteCedula = registro.buscarClientePorCedula(cedula);
+        if (clienteCedula != null) {
+            return true; // Ya existe un cliente con la misma cédula
+        }
+
+        Cliente clienteCorreo = registro.buscarClientePorCorreo(correo);
+        if (clienteCorreo != null) {
+            return true; // Ya existe un cliente con el mismo correo
+        }
+
+        Cliente clienteTelefono = registro.buscarClientePorTelefono(telefono);
+        if (clienteTelefono != null) {
+            return true; // Ya existe un cliente con el mismo número de teléfono
+        }
+
+        return false; // No existe ningún cliente con la misma cédula, correo o número de teléfono
+    }
+
 }
