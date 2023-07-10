@@ -1,5 +1,4 @@
 public class NodoArbol {
-    private
     private int valor;
     private NodoArbol nodoIzquierdo;
     private NodoArbol nodoDerecho;
