@@ -45,6 +45,7 @@ public class Recomendar {
         return sb.toString();
     }
 
+
     @Override
     public String toString() {
         return "***Productos Vendidos***\n" + productos;
