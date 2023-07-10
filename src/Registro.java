@@ -23,6 +23,21 @@ public class Registro {
         return null;
     }
     public String imprimirTodosClientesAscendente() {
+        int n = lista.size();
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                Cliente c1 = lista.get(j);
+                Cliente c2 = lista.get(j + 1);
+
+                if (c1.getNombre().compareToIgnoreCase(c2.getNombre()) > 0) {
+                    // Intercambiar los elementos
+                    lista.set(j, c2);
+                    lista.set(j + 1, c1);
+                }
+            }
+        }
+
         StringBuilder sb = new StringBuilder();
         for (Cliente cliente : lista) {
             sb.append("Nombre: ").append(cliente.getNombre()).append("\n");
@@ -33,6 +48,7 @@ public class Registro {
         }
         return sb.toString();
     }
+
 
     public String imprimirTodosClientesDescendente() {
         List<Cliente> listaInversa = new ArrayList<>(lista);
@@ -86,17 +102,24 @@ public class Registro {
 
 
     public String obtenerClientesPorNombreAscendente() {
-        List<Cliente> listaOrdenada = new ArrayList<>(lista);
-        Collections.sort(listaOrdenada, new Comparator<Cliente>() {
-            @Override
-            public int compare(Cliente c1, Cliente c2) {
-                return c1.getNombre().compareToIgnoreCase(c2.getNombre());
+        int n = lista.size();
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                Cliente c1 = lista.get(j);
+                Cliente c2 = lista.get(j + 1);
+
+                if (c1.getNombre().compareToIgnoreCase(c2.getNombre()) > 0) {
+                    // Intercambiar los elementos
+                    lista.set(j, c2);
+                    lista.set(j + 1, c1);
+                }
             }
-        });
+        }
 
         StringBuilder sb = new StringBuilder();
         sb.append("***LISTA DE CLIENTES ORDENADA POR NOMBRE (A-Z)***").append("\n");
-        for (Cliente cliente : listaOrdenada) {
+        for (Cliente cliente : lista) {
             sb.append("Nombre: ").append(cliente.getNombre()).append("\n");
             sb.append("Cédula: ").append(cliente.getCedula()).append("\n");
             sb.append("Correo: ").append(cliente.getCorreo()).append("\n");
@@ -106,14 +129,23 @@ public class Registro {
         return sb.toString();
     }
 
+
     public String obtenerClientesPorNombreDescendente() {
         List<Cliente> listaOrdenada = new ArrayList<>(lista);
-        Collections.sort(listaOrdenada, new Comparator<Cliente>() {
-            @Override
-            public int compare(Cliente c1, Cliente c2) {
-                return c2.getNombre().compareToIgnoreCase(c1.getNombre());
+        int n = listaOrdenada.size();
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                Cliente c1 = listaOrdenada.get(j);
+                Cliente c2 = listaOrdenada.get(j + 1);
+
+                if (c1.getNombre().compareToIgnoreCase(c2.getNombre()) < 0) {
+                    // Intercambiar los elementos
+                    listaOrdenada.set(j, c2);
+                    listaOrdenada.set(j + 1, c1);
+                }
             }
-        });
+        }
 
         StringBuilder sb = new StringBuilder();
         sb.append("***LISTA DE CLIENTES ORDENADA POR NOMBRE (Z-A)***").append("\n");
@@ -126,6 +158,8 @@ public class Registro {
         }
         return sb.toString();
     }
+
+
 
     public void quemarClientes (){
         Cliente c1 = new Cliente("Tomas Nuñez", "1711767226", "tomasj@hotmail.com","09988204651");
