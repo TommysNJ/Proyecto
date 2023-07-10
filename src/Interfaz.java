@@ -24,7 +24,7 @@ public class Interfaz extends JFrame{
     private JButton eliminarButton;
     private JButton mostrarProductosButton;
     private JTextArea textAMostrar;
-    private JButton buscarButton;
+    private JButton buscarButtonStock;
     private JTextField fieldValidarCedula;
     private JButton validarButton;
     private JTextField fieldRegistrarNombre;
@@ -65,6 +65,10 @@ public class Interfaz extends JFrame{
     private JCheckBox ordenAgregadoCheckBox;
     private JCheckBox ascendenteCheckBox;
     private JCheckBox descendenteCheckBox;
+    private JTextField fieldNombreStock;
+    private JTextField fieldCantidadStock;
+    private JButton agregarButtonStock;
+    private JTextArea areaStock;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
@@ -81,6 +85,8 @@ public class Interfaz extends JFrame{
         modificarModifButton.setEnabled(false);
         eliminarButton.setEnabled(false);
         ingresarProductoButton.setEnabled(false);
+        agregarButtonStock.setEnabled(false);
+        fieldCantidadStock.setEnabled(false);
         labelNombre.setVisible(false);
         labelCedula.setVisible(false);
         labelCorreo.setVisible(false);
@@ -90,6 +96,7 @@ public class Interfaz extends JFrame{
         fieldRegistrarCorreo.setVisible(false);
         fieldRegistrarTelefono.setVisible(false);
         registrarButton.setVisible(false);
+
         spinnerCantidad.setModel(modelo);
 
         spinnerCantidad.setEditor(new JSpinner.DefaultEditor(spinnerCantidad) {
@@ -593,6 +600,33 @@ public class Interfaz extends JFrame{
                     aZCheckBox.setEnabled(true);
                     zACheckBox.setEnabled(true);
                 }
+            }
+        });
+        buscarButtonStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menu.imprimirProducto(fieldNombreStock.getText()) != null) {
+                    areaStock.setText(menu.imprimirProductoCantidad(fieldNombreStock.getText()));
+                    fieldCantidadStock.setEnabled(true);
+                    agregarButtonStock.setEnabled(true);
+                    //modificarModifButton.setEnabled(true);
+                } else {
+                    areaStock.setText("No se encontró un plato con el nombre especificado.");
+                    fieldCantidadStock.setEnabled(false);
+                    agregarButtonStock.setEnabled(false);
+                }
+            }
+        });
+        agregarButtonStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menu.agregarStock(fieldNombreStock.getText(),Integer.parseInt(fieldCantidadStock.getText()));
+                areaStock.append("***STOCK RENOVADO***\n");
+                areaStock.append(menu.imprimirProductoCantidad(fieldNombreStock.getText()));
+                fieldCantidadStock.setEnabled(false);
+                agregarButtonStock.setEnabled(false);
+                fieldNombreStock.setText("");
+                fieldCantidadStock.setText("");
             }
         });
     }
