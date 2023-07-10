@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1195" height="970"/>
+      <xy x="20" y="20" width="1205" height="970"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -26,7 +26,7 @@
               <tabbedpane title="Ingresar Producto"/>
             </constraints>
             <properties>
-              <visible value="true"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children>
@@ -480,7 +480,9 @@
                 <children>
                   <component id="32e5e" class="javax.swing.JTextArea" binding="areaRecomendaciones">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <editable value="false"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -522,7 +524,9 @@
                 <children>
                   <component id="8ca81" class="javax.swing.JTextArea" binding="area">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <editable value="false"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>

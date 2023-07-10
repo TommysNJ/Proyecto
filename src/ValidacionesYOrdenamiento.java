@@ -56,6 +56,13 @@ public class ValidacionesYOrdenamiento {
         return null;
     }
 
+    public boolean verificarLista (List<ProductoPedido> productoPedido){
+        if (productoPedido==null){
+            return true;
+        }
+        return false;
+    }
+
     public boolean esCorreoValido(String correo) {
         String patron = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]+$";
         return correo.matches(patron);
@@ -143,4 +150,16 @@ public class ValidacionesYOrdenamiento {
         return false; // No existe ningún cliente con la misma cédula, correo o número de teléfono
     }
 
+    /*public boolean validarClienteExistente(String cedula, String correo, String telefono) {
+        Registro registro = new Registro();
+
+        Cliente clienteCedula = registro.buscarClientePorCedula(cedula);
+        Cliente clienteCorreo = registro.buscarClientePorCorreo(correo);
+        Cliente clienteTelefono = registro.buscarClientePorTelefono(telefono);
+
+        if (clienteCedula != null || clienteCorreo != null || clienteTelefono != null) {
+            return true; // Ya existe un cliente con la misma cédula
+        }
+        return false; // No existe ningún cliente con la misma cédula, correo o número de teléfono
+    }*/
 }

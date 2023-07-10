@@ -329,9 +329,10 @@ public class Interfaz extends JFrame{
                     } else if(fieldRegistrarNombre.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Verifica loa datos del cliente. Ingresa nombre del cliente");
                     }else if (validar.validarClienteExistente(cedula, correo, telf)) {
+                    //if (!validar.validarClienteExistente(cedula,correo,telf)){
                         JOptionPane.showMessageDialog(null, "El cliente ya existe. Verifica los datos ingresados");
                         cliente = new Cliente(fieldRegistrarNombre.getText(), fieldRegistrarCedula.getText(), fieldRegistrarCorreo.getText(), fieldRegistrarTelefono.getText());
-                        //Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
+                        Cliente cliente = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                         pedido.setCliente(cliente);
                         pedido.calcularTotal();
                         historial.agregarPedido(pedido);
@@ -344,7 +345,8 @@ public class Interfaz extends JFrame{
                         fieldRegistrarTelefono.setText("");
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito!!");
                         FINALIZARButton.setEnabled(false);
-                    }else{
+                        //pedido.limpiarLista();
+                   }else{
                             // codigo boton despues de validar
                         /*Cliente client = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),
                                 fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
@@ -364,6 +366,14 @@ public class Interfaz extends JFrame{
                             fieldRegistrarTelefono.setText("");
                             JOptionPane.showMessageDialog(null, "Pedido realizado con éxito!!");
                             FINALIZARButton.setEnabled(false);
+                            labelNombre.setVisible(false);
+                            labelCedula.setVisible(false);
+                            labelCorreo.setVisible(false);
+                            labelTelefono.setVisible(false);
+                            fieldRegistrarNombre.setVisible(false);
+                            fieldRegistrarCedula.setVisible(false);
+                            fieldRegistrarCorreo.setVisible(false);
+                            fieldRegistrarTelefono.setVisible(false);
                         }
 
                     }

@@ -26,6 +26,9 @@ public class Pedido {
         return productos.toString();
     }
 
+    public void limpiarLista(){
+        productos.clear();
+    }
 
 
     @Override
