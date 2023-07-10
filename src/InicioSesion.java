@@ -10,7 +10,8 @@ public class InicioSesion extends JFrame{
     private String passCajero = "cajero";
     private String userAdmin = "admin";
     private String passAdmin = "admin";
-    private boolean esAdmin;
+    private String usuario =  "";
+    private String clave  = "";
 
 
     public InicioSesion() {
@@ -18,16 +19,23 @@ public class InicioSesion extends JFrame{
         btnAccept.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                    if (txtFieldUser.getText().equals(userAdmin) && txtFieldPass.getText().equals(passAdmin)) {
-
-                        Interfaz formaPrincipal = new Interfaz();
+                    usuario = txtFieldUser.getText();
+                    clave = txtFieldPass.getText();
+                    if (usuario.equals(userAdmin) && clave.equals(passAdmin)) {
+                        Interfaz formaPrincipal = new Interfaz(usuario, clave);
                         formaPrincipal.setContentPane(formaPrincipal.getMainPanel());
                         formaPrincipal.setBounds(350, 150, 800, 500);
                         formaPrincipal.setVisible(true);
                         formaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         setVisible(false);
-                    } else {
+                    } else if(usuario.equals(userCajero) && clave.equals(passCajero)){
+                        Interfaz formaPrincipal = new Interfaz(usuario, clave);
+                        formaPrincipal.setContentPane(formaPrincipal.getMainPanel());
+                        formaPrincipal.setBounds(350, 150, 800, 500);
+                        formaPrincipal.setVisible(true);
+                        formaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        setVisible(false);
+                    }else{
                         JOptionPane.showMessageDialog(null, "Credenciales invalidas");
                         txtFieldPass.setText("");
                         txtFieldUser.setText("");
@@ -58,7 +66,13 @@ public class InicioSesion extends JFrame{
         });
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
 
+    public String getClave() {
+        return clave;
+    }
 
     public JPanel getPanel() {
         return panel;

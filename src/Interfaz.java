@@ -72,6 +72,9 @@ public class Interfaz extends JFrame{
     private JButton verHistorialButton;
     private JTextArea areaRecomendaciones;
     private JButton buttonVendidos;
+    private JTabbedPane tabCajero;
+    private JButton cambiarPerfilButton;
+    private JButton cambiarPerfilButton1;
     private JButton producto;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
@@ -84,7 +87,7 @@ public class Interfaz extends JFrame{
     private InicioSesion inicio = new InicioSesion();
 
 
-    public Interfaz() {
+    public Interfaz(String mUsuario, String mClave) {
         textoModiDescripcion.setEnabled(false);
         textoModifPrecio.setEnabled(false);
         modificarModifButton.setEnabled(false);
@@ -103,7 +106,13 @@ public class Interfaz extends JFrame{
         registrarButton.setVisible(false);
 
         spinnerCantidad.setModel(modelo);
-
+        if(mUsuario.equals("admin") && mClave.equals("admin")){
+            tabCajero.setVisible(false);
+            tabbedPane1.setVisible(true);
+        }else if(mUsuario.equals("cajero") && mClave.equals("cajero")){
+            tabCajero.setVisible(true);
+            tabbedPane1.setVisible(false);
+        }
         spinnerCantidad.setEditor(new JSpinner.DefaultEditor(spinnerCantidad) {
             @Override
             public void setEnabled(boolean enabled) {
@@ -648,6 +657,20 @@ public class Interfaz extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 areaRecomendaciones.setText(recomendar.generarArbol().toString());
+            }
+        });
+        cambiarPerfilButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tabCajero.setVisible(false);
+                tabbedPane1.setVisible(true);
+            }
+        });
+        cambiarPerfilButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tabCajero.setVisible(true);
+                tabbedPane1.setVisible(false);
             }
         });
     }
