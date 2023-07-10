@@ -45,6 +45,17 @@ public class ValidacionesYOrdenamiento {
         }
         return null;
     }
+
+    public ProductoPedido verificacionProdPedido (ProductoPedido producto, List<ProductoPedido> menu){
+        for (int i=0; i<menu.size(); i++){
+            ProductoPedido prod = menu.get(i);
+            if (producto.getProducto().getNombre().equals(prod.getProducto().getNombre())){
+                return prod;
+            }
+        }
+        return null;
+    }
+
     public boolean esCorreoValido(String correo) {
         String patron = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]+$";
         return correo.matches(patron);

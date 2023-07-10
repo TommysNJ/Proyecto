@@ -69,11 +69,14 @@ public class Interfaz extends JFrame{
     private JTextField fieldCantidadStock;
     private JButton agregarButtonStock;
     private JTextArea areaStock;
+    private JButton verHistorialButton;
+    private JTextArea areaRecomendaciones;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
     private Cliente cliente;
     private Pedido pedido = new Pedido();
+    private Recomendar recomendar = new Recomendar();
     private SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,100,1);
     private ValidacionesYOrdenamiento validar = new ValidacionesYOrdenamiento();
     private InicioSesion inicio = new InicioSesion();
@@ -280,9 +283,11 @@ public class Interfaz extends JFrame{
                 //pedido = new Pedido(cliente);
                 Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
                 ProductoPedido productoPedido= new ProductoPedido(producto,(int)spinnerCantidad.getValue());
+                ProductoPedido productoPedido1= new ProductoPedido(producto,(int)spinnerCantidad.getValue());
                 if (menu.disminuirCantidadProducto(productoPedido)){
                     //menu.disminuirCantidadProducto(productoPedido);
                     pedido.agregarProductoPedido(productoPedido);
+                    recomendar.agregarProductoPedido(productoPedido1);
                     areaProdAgregados.setText(pedido.imprimirPedido());
                     FINALIZARButton.setEnabled(true);
                 } else {
@@ -627,6 +632,12 @@ public class Interfaz extends JFrame{
                 agregarButtonStock.setEnabled(false);
                 fieldNombreStock.setText("");
                 fieldCantidadStock.setText("");
+            }
+        });
+        verHistorialButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaRecomendaciones.setText(recomendar.toString());
             }
         });
     }
