@@ -29,4 +29,7 @@ public class NodoArbol {
         return productoPedido;
     }
 
+    public void setProductoPedido(ProductoPedido productoPedido) {
+        this.productoPedido = productoPedido;
+    }
 }
