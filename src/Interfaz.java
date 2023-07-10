@@ -688,7 +688,6 @@ public class Interfaz extends JFrame{
         }
     }
 
-
     public void  habBtnValidar(){
         if(!fieldValidarCedula.getText().isEmpty()){
             validarButton.setEnabled(true);

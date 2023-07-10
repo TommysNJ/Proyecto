@@ -27,11 +27,11 @@ public class Menu {
         }
     }
     public void quemarProductos (JComboBox<String> comboBox){
-        Producto prod1 = new Producto("Producto01", "Papa", 2000, 5);
-        Producto prod2 = new Producto("Producto02", "Salchi", 200,5);
-        Producto prod3 = new Producto("Producto03", "Carni", 300,5);
-        Producto prod4 = new Producto("Producto04", "Pollo", 2000,5);
-        Producto prod5 = new Producto("Producto05", "Sopa", 25,5);
+        Producto prod1 = new Producto("Hamburguesa criolla", "Pan, carne, tocino", 5.25, 10);
+        Producto prod2 = new Producto("Pizza familiar", "Pizaa de 5 inredientes", 9.99,10);
+        Producto prod3 = new Producto("Hot Dog", "Pan, salchica, salsas", 3.99,10);
+        Producto prod4 = new Producto("Tacos", "Masa suave con chillie", 7.25,10);
+        Producto prod5 = new Producto("Gaseosa", "Sabor manzana", 2.10,10);
         lista.add(prod1);
         comboBox.addItem(prod1.getNombre());
         lista.add(prod2);

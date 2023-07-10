@@ -128,12 +128,12 @@ public class Registro {
     }
 
     public void quemarClientes (){
-        Cliente c1 = new Cliente("Tomas Nuñez", "0503897910", "tomas.nunezj@hotmail.com","0998949534");
-        Cliente c2 = new Cliente("Juan Ramirez", "1534567845", "tomas.nunezj@hotmail.com","0998949534");
-        Cliente c3 = new Cliente("Mateo Rosero", "2014567348", "tomas.nunezj@hotmail.com","0998949534");
-        Cliente c4 = new Cliente("Willin Lopez", "3476342517", "tomas.nunezj@hotmail.com","0998949534");
-        Cliente c5 = new Cliente("Marco Cando", "0978572832", "tomas.nunezj@hotmail.com", "0998949534");
-        Cliente c6 = new Cliente("Andres Guaman","123","andres@gmail.com", "0982863427");
+        Cliente c1 = new Cliente("Tomas Nuñez", "1711767226", "tomasj@hotmail.com","09988204651");
+        Cliente c2 = new Cliente("Juan Ramirez", "1715217749", "juan@hotmail.com","0960027326");
+        Cliente c3 = new Cliente("Mateo Rosero", "1752888592", "mateo@hotmail.com","0984905968");
+        Cliente c4 = new Cliente("Willian Lopez", "0202140166", "willian@hotmail.com","0980321581");
+        Cliente c5 = new Cliente("Marco Cando", "1707489322", "marco@hotmail.com", "0993986389");
+        Cliente c6 = new Cliente("Andres Guaman","1756126659","andres@gmail.com", "0960267324");
         agregarCliente(c1);
         agregarCliente(c2);
         agregarCliente(c3);

@@ -7,8 +7,6 @@ public class Pedido {
     private double valorTotal;
     private Cliente cliente;
 
-
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
