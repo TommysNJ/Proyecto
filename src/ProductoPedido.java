@@ -15,9 +15,6 @@ public class ProductoPedido {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
 
     public int getCantidad() {
         return cantidad;
@@ -31,9 +28,6 @@ public class ProductoPedido {
         return precio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
 
     @Override
     public String toString() {
