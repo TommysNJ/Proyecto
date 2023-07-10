@@ -24,7 +24,7 @@ public class Interfaz extends JFrame{
     private JButton eliminarButton;
     private JButton mostrarProductosButton;
     private JTextArea textAMostrar;
-    private JButton buscarButton;
+    private JButton buscarButtonStock;
     private JTextField fieldValidarCedula;
     private JButton validarButton;
     private JTextField fieldRegistrarNombre;
@@ -65,11 +65,20 @@ public class Interfaz extends JFrame{
     private JCheckBox ordenAgregadoCheckBox;
     private JCheckBox ascendenteCheckBox;
     private JCheckBox descendenteCheckBox;
+    private JTextField fieldNombreStock;
+    private JTextField fieldCantidadStock;
+    private JButton agregarButtonStock;
+    private JTextArea areaStock;
+    private JButton verHistorialButton;
+    private JTextArea areaRecomendaciones;
+    private JButton buttonVendidos;
+    private JButton producto;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
     private Cliente cliente;
     private Pedido pedido = new Pedido();
+    private Recomendar recomendar = new Recomendar();
     private SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,100,1);
     private ValidacionesYOrdenamiento validar = new ValidacionesYOrdenamiento();
     private InicioSesion inicio = new InicioSesion();
@@ -81,6 +90,8 @@ public class Interfaz extends JFrame{
         modificarModifButton.setEnabled(false);
         eliminarButton.setEnabled(false);
         ingresarProductoButton.setEnabled(false);
+        agregarButtonStock.setEnabled(false);
+        fieldCantidadStock.setEnabled(false);
         labelNombre.setVisible(false);
         labelCedula.setVisible(false);
         labelCorreo.setVisible(false);
@@ -90,6 +101,7 @@ public class Interfaz extends JFrame{
         fieldRegistrarCorreo.setVisible(false);
         fieldRegistrarTelefono.setVisible(false);
         registrarButton.setVisible(false);
+
         spinnerCantidad.setModel(modelo);
 
         spinnerCantidad.setEditor(new JSpinner.DefaultEditor(spinnerCantidad) {
@@ -273,9 +285,11 @@ public class Interfaz extends JFrame{
                 //pedido = new Pedido(cliente);
                 Producto producto = menu.imprimirProducto(String.valueOf(comboBoxPedido.getSelectedItem()));
                 ProductoPedido productoPedido= new ProductoPedido(producto,(int)spinnerCantidad.getValue());
+                ProductoPedido productoPedido1= new ProductoPedido(producto,(int)spinnerCantidad.getValue());
                 if (menu.disminuirCantidadProducto(productoPedido)){
                     //menu.disminuirCantidadProducto(productoPedido);
                     pedido.agregarProductoPedido(productoPedido);
+                    recomendar.agregarProductoPedido(productoPedido1);
                     areaProdAgregados.setText(pedido.imprimirPedido());
                     FINALIZARButton.setEnabled(true);
                 } else {
@@ -449,6 +463,8 @@ public class Interfaz extends JFrame{
                             fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                     registro.agregarCliente(client);
                 }
+                registrarButton.setVisible(false);
+                JOptionPane.showMessageDialog(null,"Cliente ingresado correctamente a la base de datos!!");
             }
         });
         fieldRegistrarNombre.addKeyListener(new KeyAdapter() {
@@ -593,6 +609,45 @@ public class Interfaz extends JFrame{
                     aZCheckBox.setEnabled(true);
                     zACheckBox.setEnabled(true);
                 }
+            }
+        });
+        buscarButtonStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menu.imprimirProducto(fieldNombreStock.getText()) != null) {
+                    areaStock.setText(menu.imprimirProductoCantidad(fieldNombreStock.getText()));
+                    fieldCantidadStock.setEnabled(true);
+                    agregarButtonStock.setEnabled(true);
+                    //modificarModifButton.setEnabled(true);
+                } else {
+                    areaStock.setText("No se encontró un plato con el nombre especificado.");
+                    fieldCantidadStock.setEnabled(false);
+                    agregarButtonStock.setEnabled(false);
+                }
+            }
+        });
+        agregarButtonStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menu.agregarStock(fieldNombreStock.getText(),Integer.parseInt(fieldCantidadStock.getText()));
+                areaStock.append("***STOCK RENOVADO***\n");
+                areaStock.append(menu.imprimirProductoCantidad(fieldNombreStock.getText()));
+                fieldCantidadStock.setEnabled(false);
+                agregarButtonStock.setEnabled(false);
+                fieldNombreStock.setText("");
+                fieldCantidadStock.setText("");
+            }
+        });
+        verHistorialButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaRecomendaciones.setText(recomendar.toString());
+            }
+        });
+        buttonVendidos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaRecomendaciones.setText(recomendar.generarArbol().toString());
             }
         });
     }

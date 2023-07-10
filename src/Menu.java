@@ -50,6 +50,9 @@ public class Menu {
         }
         return null;
     }
+    public String imprimirProductoCantidad (String nombre){
+        return orden.busquedaSecuencialNombre(nombre,lista).toString()+ "Cantidad disponible: " + orden.busquedaSecuencialNombre(nombre,lista).getCantidad() + "\n\n";
+    }
 
     public boolean eliminarProducto (String nombre, JComboBox<String> combobox){
         for (int i=0;i<lista.size();i++){
@@ -82,6 +85,16 @@ public class Menu {
             }
         }
         return false;
+    }
+
+    public boolean agregarStock (String nombre, int cantidad){
+        Producto producto = orden.busquedaSecuencialNombre(nombre,lista);
+        if (producto!=null){
+            producto.setCantidad(producto.getCantidad()+cantidad);
+            return true;
+        } else{
+            return false;
+        }
     }
 
     private void actualizarComboBox(JComboBox<String> combobox) {
