@@ -39,4 +39,19 @@ public class Arbol {
             mostrarInOrder(nodo.getNodoDerecho());
         }
     }
+    public List<ProductoPedido> productosMenosVendidos() {
+        productosVendidos.clear();
+        obtenerProductosMenosVendidosRecursivo(raiz);
+        //List<ProductoPedido> productosMenosVendidos = new ArrayList<>();
+        //obtenerProductosMenosVendidosRecursivo(raiz, productosMenosVendidos);
+        return productosVendidos;
+    }
+
+    private void obtenerProductosMenosVendidosRecursivo(NodoArbol nodo) {
+        if (nodo != null) {
+            obtenerProductosMenosVendidosRecursivo(nodo.getNodoDerecho());
+            productosVendidos.add(nodo.getProductoPedido());
+            obtenerProductosMenosVendidosRecursivo(nodo.getNodoIzquierdo());
+        }
+    }
 }

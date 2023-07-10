@@ -36,11 +36,32 @@ public class Recomendar {
 
         return listaProductosIndentados;
     }
+    public List<String> generarArbolProductosMenosVendidos() {
+        Arbol arbol = new Arbol();
+
+        for (ProductoPedido productoPedido : productos){
+            arbol.insertar(productoPedido);
+        }
+        List<ProductoPedido> productosMenosVendidos = arbol.productosMenosVendidos();
+        Collections.reverse(productosMenosVendidos);
+
+        int nivelIndentacion = 0;
+        List<String> listaProductosIndentados = new ArrayList<>();
+
+        for (ProductoPedido productoPedido : productosMenosVendidos) {
+            String indentacion = obtenerIndentacion(nivelIndentacion);
+            String productoIndentado = indentacion + productoPedido.getProducto().getNombre() + ": " + "Cantidad Vendida - " + productoPedido.getCantidad() +"\n";
+            listaProductosIndentados.add(productoIndentado);
+            nivelIndentacion++;
+        }
+
+        return listaProductosIndentados;
+    }
 
     private String obtenerIndentacion(int nivel) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < nivel; i++) {
-            sb.append("    ");
+            sb.append("             ");
         }
         return sb.toString();
     }

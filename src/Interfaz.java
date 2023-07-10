@@ -75,6 +75,7 @@ public class Interfaz extends JFrame{
     private JTabbedPane tabCajero;
     private JButton cambiarPerfilButton;
     private JButton cambiarPerfilButton1;
+    private JButton verProductosMenosPedidosButton;
     private JButton producto;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
@@ -678,6 +679,12 @@ public class Interfaz extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 tabCajero.setVisible(true);
                 tabbedPane1.setVisible(false);
+            }
+        });
+        verProductosMenosPedidosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaRecomendaciones.setText(recomendar.generarArbolProductosMenosVendidos().toString());
             }
         });
     }
