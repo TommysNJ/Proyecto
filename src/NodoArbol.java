@@ -1,10 +1,10 @@
 public class NodoArbol {
-    private int valor;
+    private ProductoPedido productoPedido;
     private NodoArbol nodoIzquierdo;
     private NodoArbol nodoDerecho;
 
-    public NodoArbol (int valor){
-        this.valor = valor;
+    public NodoArbol (ProductoPedido productoPedido){
+        this.productoPedido = productoPedido;
         this.nodoIzquierdo = null;
         this.nodoDerecho = null;
     }
@@ -13,7 +13,23 @@ public class NodoArbol {
         return nodoIzquierdo;
     }
 
+    public void setNodoIzquierdo(NodoArbol nodoIzquierdo) {
+        this.nodoIzquierdo = nodoIzquierdo;
+    }
+
     public NodoArbol getNodoDerecho() {
         return nodoDerecho;
+    }
+
+    public void setNodoDerecho(NodoArbol nodoDerecho) {
+        this.nodoDerecho = nodoDerecho;
+    }
+
+    public ProductoPedido getProductoPedido() {
+        return productoPedido;
+    }
+
+    public void setProductoPedido(ProductoPedido productoPedido) {
+        this.productoPedido = productoPedido;
     }
 }

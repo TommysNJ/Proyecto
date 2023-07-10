@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Recomendar {
@@ -12,6 +13,17 @@ public class Recomendar {
         } else {
             productos.add(producto);
         }
+    }
+
+    public List<ProductoPedido> generarArbol(){
+        Arbol arbol = new Arbol();
+
+        for (ProductoPedido productoPedido : productos){
+            arbol.insertar(productoPedido);
+        }
+        List<ProductoPedido> productosMasVendidos = arbol.productosMasVendidos();
+        Collections.reverse(productosMasVendidos);
+        return productosMasVendidos;
     }
 
     @Override

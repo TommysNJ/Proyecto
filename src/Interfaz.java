@@ -71,6 +71,8 @@ public class Interfaz extends JFrame{
     private JTextArea areaStock;
     private JButton verHistorialButton;
     private JTextArea areaRecomendaciones;
+    private JButton buttonVendidos;
+    private JButton producto;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
     private Historial historial = new Historial();
@@ -461,6 +463,8 @@ public class Interfaz extends JFrame{
                             fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                     registro.agregarCliente(client);
                 }
+                registrarButton.setVisible(false);
+                JOptionPane.showMessageDialog(null,"Cliente ingresado correctamente a la base de datos!!");
             }
         });
         fieldRegistrarNombre.addKeyListener(new KeyAdapter() {
@@ -638,6 +642,12 @@ public class Interfaz extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 areaRecomendaciones.setText(recomendar.toString());
+            }
+        });
+        buttonVendidos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaRecomendaciones.setText(recomendar.generarArbol().toString());
             }
         });
     }
