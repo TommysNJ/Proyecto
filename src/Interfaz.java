@@ -104,6 +104,7 @@ public class Interfaz extends JFrame{
         fieldRegistrarCorreo.setVisible(false);
         fieldRegistrarTelefono.setVisible(false);
         registrarButton.setVisible(false);
+        agregarButton.setEnabled(false);
 
         spinnerCantidad.setModel(modelo);
         if(mUsuario.equals("admin") && mClave.equals("admin")){
@@ -258,6 +259,7 @@ public class Interfaz extends JFrame{
                     fieldRegistrarCorreo.setEditable(false);
                     fieldRegistrarTelefono.setEditable(false);
                     registrarButton.setVisible(false);
+                    agregarButton.setEnabled(true);
                 }
             }
         });
@@ -322,7 +324,19 @@ public class Interfaz extends JFrame{
                 pedido.calcularTotal();
                 historial.agregarPedido(pedido);
                 pedido = new Pedido();
+                labelNombre.setVisible(false);
+                labelCedula.setVisible(false);
+                labelCorreo.setVisible(false);
+                labelTelefono.setVisible(false);
+                fieldRegistrarNombre.setVisible(false);
+                fieldRegistrarCedula.setVisible(false);
+                fieldRegistrarCorreo.setVisible(false);
+                fieldRegistrarTelefono.setVisible(false);
                 areaProdAgregados.setText("");
+                fieldValidarCedula.setText("");
+                agregarButton.setEnabled(false);
+                FINALIZARButton.setEnabled(false);
+
                 JOptionPane.showMessageDialog(null,"Pedido realizado con éxito!!");
             }
         });
@@ -471,9 +485,19 @@ public class Interfaz extends JFrame{
                     Cliente client = new Cliente(fieldRegistrarNombre.getText(),fieldRegistrarCedula.getText(),
                             fieldRegistrarCorreo.getText(),fieldRegistrarTelefono.getText());
                     registro.agregarCliente(client);
+                    JOptionPane.showMessageDialog(null,"Cliente ingresado correctamente a la base de datos!!");
+                    labelNombre.setVisible(false);
+                    labelCedula.setVisible(false);
+                    labelCorreo.setVisible(false);
+                    labelTelefono.setVisible(false);
+                    fieldRegistrarNombre.setVisible(false);
+                    fieldRegistrarCedula.setVisible(false);
+                    fieldRegistrarCorreo.setVisible(false);
+                    fieldRegistrarTelefono.setVisible(false);
+                    areaProdAgregados.setText("");
+                    fieldValidarCedula.setText("");
                 }
-                registrarButton.setVisible(false);
-                JOptionPane.showMessageDialog(null,"Cliente ingresado correctamente a la base de datos!!");
+                //registrarButton.setVisible(false);
             }
         });
         fieldRegistrarNombre.addKeyListener(new KeyAdapter() {

@@ -15,7 +15,7 @@ public class Recomendar {
         }
     }
 
-    public List<ProductoPedido> generarArbol(){
+    public List<String> generarArbol(){
         Arbol arbol = new Arbol();
 
         for (ProductoPedido productoPedido : productos){
@@ -23,7 +23,26 @@ public class Recomendar {
         }
         List<ProductoPedido> productosMasVendidos = arbol.productosMasVendidos();
         Collections.reverse(productosMasVendidos);
-        return productosMasVendidos;
+
+        int nivelIndentacion = 0;
+        List<String> listaProductosIndentados = new ArrayList<>();
+
+        for (ProductoPedido productoPedido : productosMasVendidos) {
+            String indentacion = obtenerIndentacion(nivelIndentacion);
+            String productoIndentado = indentacion + productoPedido.getProducto().getNombre() + ": " + "Cantidad Vendida - " + productoPedido.getCantidad() +"\n";
+            listaProductosIndentados.add(productoIndentado);
+            nivelIndentacion++;
+        }
+
+        return listaProductosIndentados;
+    }
+
+    private String obtenerIndentacion(int nivel) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < nivel; i++) {
+            sb.append("    ");
+        }
+        return sb.toString();
     }
 
     @Override

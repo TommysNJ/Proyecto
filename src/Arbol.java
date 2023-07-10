@@ -31,6 +31,7 @@ public class Arbol {
         mostrarInOrder(raiz);
         return productosVendidos;
     }
+
     private void mostrarInOrder (NodoArbol nodo){
         if (nodo!=null){
             mostrarInOrder(nodo.getNodoIzquierdo());

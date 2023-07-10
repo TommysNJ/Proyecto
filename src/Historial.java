@@ -10,10 +10,6 @@ public class Historial {
         return pilaHistorial;
     }
 
-    public void borrar (){
-
-    }
-
     @Override
     public String toString() {
         return "***Historial***\n" + pilaHistorial;
