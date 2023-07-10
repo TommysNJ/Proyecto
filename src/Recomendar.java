@@ -44,14 +44,7 @@ public class Recomendar {
         }
         return sb.toString();
     }
-
-    public List<ProductoPedido> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<ProductoPedido> productos) {
-        this.productos = productos;
-    }
+    
 
     @Override
     public String toString() {
