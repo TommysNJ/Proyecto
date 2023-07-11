@@ -76,6 +76,9 @@ public class Interfaz extends JFrame{
     private JButton cambiarPerfilButton;
     private JButton cambiarPerfilButton1;
     private JButton verProductosMenosPedidosButton;
+    private JButton borrarHistorialButton;
+    private JTextField fieldBuscarPorNombre;
+    private JButton buttonBuscarPorNombre;
     private JButton producto;
     private Menu menu = new Menu();
     private Registro registro = new Registro();
@@ -685,6 +688,27 @@ public class Interfaz extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 areaRecomendaciones.setText(recomendar.generarArbolProductosMenosVendidos().toString());
+            }
+        });
+        borrarHistorialButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int opcion = JOptionPane.showOptionDialog(null,"¿Está seguro que desea borrar el registro de ventas?",
+                        "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null,null,null);
+                if (opcion==JOptionPane.YES_OPTION){
+                    recomendar.borrarHistorial();
+                    areaRecomendaciones.setText("");
+                    JOptionPane.showMessageDialog(null,"Se ha borrado con éxito el registro de ventas");
+                } else if (opcion==JOptionPane.NO_OPTION){
+
+                }
+            }
+        });
+        buttonBuscarPorNombre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaHistorial.setText(historial.mostrarHistorialPorNombre(fieldBuscarPorNombre.getText()).toString());
+                fieldBuscarPorNombre.setText("");
             }
         });
     }

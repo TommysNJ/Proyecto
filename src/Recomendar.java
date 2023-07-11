@@ -15,6 +15,10 @@ public class Recomendar {
         }
     }
 
+    public void borrarHistorial (){
+        productos.clear();
+    }
+
     public List<String> generarArbol(){
         Arbol arbol = new Arbol();
 

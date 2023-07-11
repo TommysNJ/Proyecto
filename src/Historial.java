@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Historial {
@@ -8,6 +10,15 @@ public class Historial {
     }
     public Stack<Pedido> getPilaHistorial (){
         return pilaHistorial;
+    }
+    public List<Pedido> mostrarHistorialPorNombre(String nombre){
+        List<Pedido> pedido = new ArrayList<>();
+        for ( Pedido ped : pilaHistorial){
+            if (ped.getCliente().getCedula().equalsIgnoreCase(nombre)){
+                pedido.add(ped);
+            }
+        }
+        return pedido;
     }
 
     @Override
